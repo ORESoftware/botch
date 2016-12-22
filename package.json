@@ -1,0 +1,23 @@
+{
+  "name": "botch",
+  "version": "0.0.1001",
+  "description": "universal hub for botch",
+  "main": "index.js",
+  "scripts": {
+    "test": "suman"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ORESoftware/botch.git"
+  },
+  "keywords": [
+    "botch",
+    "test"
+  ],
+  "author": "Olegzandr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ORESoftware/botch/issues"
+  },
+  "homepage": "https://github.com/ORESoftware/botch#readme"
+}
