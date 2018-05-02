@@ -25,8 +25,8 @@ What this means: when you open a terminal, botch will attempt to source <br>
 a shell script named `xxx.sh`, from the present working directory.
 </i>
 
-<br>
-<br>
+<p>
+<p>
 
 2. To use botch default behavior for a project. This is recommended.
 
@@ -36,7 +36,7 @@ Simply install it to every project you want to use it with.
   npm install -S botch
 ```
 
-<br>
+<p>
 <i> 
 What this means: Botch will do the same thing as above, if the $botch_shell_file_name env is set.
 But it will also pick up the `./node_modules/botch/bin.sh` file and run that for your project.
