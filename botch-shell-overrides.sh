@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-cd(){
-    builtin cd "$@";
+
+run_botch(){
 
     which_botch=$(which botch);
 
@@ -13,6 +13,33 @@ cd(){
     p="$(botch --clean-path)";
     export PATH="$p";
 
-    # we only add to the path, if botch is installed locally
     . "$HOME/.botch/shell.sh"
 }
+
+pushd(){
+    builtin pushd "$@";
+    run_botch
+}
+
+popd(){
+    builtin popd "$@";
+    run_botch
+}
+
+cd(){
+    builtin cd "$@";
+    run_botch
+}
+
+
+botch_unset_all(){
+ unset -f cd;
+ unset -f popd;
+ unset -f pushd;
+}
+
+export -f run_botch;
+export -f cd;
+export -f popd;
+export -f pushd;
+export -f botch_unset_all;
