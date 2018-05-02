@@ -1,50 +1,54 @@
 
 
-# Your Project Readme Goes Here
+# Botch
 
-Steps to making this project skeleton into your own project.
+>>> Create local development environments for each NPM project on your filesystem.
 
-1. Clone this repo: <br>
-    `git clone https://github.com/your-org/botch.git YOUR-PROJECT-NAME`
-2. Update package.json so that `name` property matches `YOUR-PROJECT-NAME`.
-3. Update other package.json fields so that they are accurate.
+### Installation
 
-To check to see if `YOUR-PROJECT-NAME` is available on NPM, uses this command at the command line:
+There are two different avenues.
 
-`$ npm view YOUR-PROJECT-NAME`  # will give you a 404 if the name is available.
+1. Just use your own shell script in each project.
 
-
-### This project skeleton uses:
-
-* the correct semver initial value (npm init defaults to 1.0.0 which is just wrong).
-* typescript 2.x
-* nodejs version 9
-* travis (for automated testing of your library)
-* MIT license
-* good simple default settings for .gitignore / .npmignore
-
-
-
-To compile your *.ts files to a dist directory (keeps your source and target files separate),
-<br>
-simply add this to tsconfig.json:
-
-
-```json
-"compilerOptions": {
-    "outDir": "dist"
-}
+```bash
+  npm install -g botch
 ```
 
-and
+then use this in .bash_profile/.bashrc:
 
-```json
- "include": [
-    "src"
-  ]
+```bash
+export botch_shell_file_name="xxx.sh";
 ```
 
-For small libraries with a couple of files, I find that using a dist folder (target directory) is more trouble
-than it's worth. For projects with just one .ts/.js file, you can just get rid of the lib folder, and put your index.ts
-file in the root of the project. In that case, make sure to change the `main` property in package.json from 'lib/index.js' to
-'index.js'. Same with the `typings/types` properties.
+<i> 
+What this means: when you open a terminal, botch will attempt to source <br>
+a shell script named `xxx.sh`, from the present working directory.
+</i>
+
+
+2. To use botch default behavior for a project. This is recommended.
+
+Simply install it to every project you want to use it with.
+
+```bash
+  npm install -S botch
+```
+
+<i> 
+What this means: Botch will do the same thing as above, if the $botch_shell_file_name env is set.
+But it will also pick up the `./node_modules/botch/bin.sh` file and run that for your project.
+Primarily this modifies (prepends) the $PATH to include the executables in ./node_modules/.bin.
+This gives your local NPM executables *precendece*.
+</i>
+
+
+## Regardless of which method you use, make sure you add this to your .bash_profile/.bashrc files:
+
+```bash
+. "$HOME/.botch/shell.sh"      # always source this file
+. "$HOME/.botch/overrides.sh"  # source this if you want to invoke botch when changing directories
+```
+
+
+
+
