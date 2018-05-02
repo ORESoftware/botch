@@ -4,16 +4,18 @@
 
 run_botch(){
 
-    which_botch=$(which botch);
+    echo "botch hook invoked, running run_botch...";
+
+    local which_botch=$(which botch);
 
     if [[ -z "$which_botch" ]]; then
        npm install -g botch
     fi
 
-    which_botch="$(which do_the_botch)"
+    local which_do_the_botch="$(declare -f do_the_botch)"
 
-    if [[ -z "$which_botch" ]]; then
-      echo "botch coudl not find shell.sh in .botch home dir, re-sourcing.";
+    if [[ -z "$which_do_the_botch" ]]; then
+      echo "botch could not find shell.sh in .botch home dir, re-sourcing.";
       . "$HOME/.botch/shell.sh";
     fi
 
@@ -23,36 +25,46 @@ run_botch(){
    }
 }
 
-#pushd(){
-#    builtin pushd "$@";
-#    run_botch
-#}
-#
-#popd(){
-#    builtin popd "$@";
-#    run_botch
-#}
+pushd(){
+    builtin pushd "$@";
+    echo "botch pushd hook invoked."
+    run_botch
+}
 
-alias prev_cd="cd";
+popd(){
+    builtin popd "$@";
+    echo "botch popd hook invoked."
+    run_botch
+}
 
-# Turn on extended shell debugging
-shopt -s extdebug
-# Dump the function's name, line number and fully qualified source file
-declare -F cd
-# Turn off extended shell debugging
-shopt -u extdebug
+#alias prev_cd="cd";
+
+#shopt -s extdebug
+#declare -F cd
+#shopt -u extdebug
+
+if [[ -z "$is_botch_cd_defined" ]]; then
+    export is_botch_cd_defined="yes";
+    definition_prev_cd="prev_$(declare -f cd)"
+    echo "$definition_prev_cd";
+    eval "${definition_prev_cd}"
+    unset definition_prev_cd  # clean up, no reason to leave this string around
+    export -f prev_cd
+fi
+
 
 cd(){
-    builtin cd "$@";
-#    prev_cd "$@"
+#    builtin cd "$@";
+    prev_cd "$@"
+    echo "botch cd hook invoked."
     run_botch
 }
 
 
 botch_unset_all(){
  unset -f cd;
-# unset -f popd;
-# unset -f pushd;
+ unset -f popd;
+ unset -f pushd;
 }
 
 export -f run_botch;

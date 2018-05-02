@@ -8,9 +8,14 @@
 . "$PWD/node_modules/botch/bin.sh" 2> /dev/null && echo "Botch env: Local development environment detected."
 
 
+botch_re_source(){
+  . "$HOME/.botch/shell.sh";
+  . "$HOME/.botch/overrides.sh"
+}
+
 do_the_botch(){
 
-    which_botch="$(which botch)";
+    local which_botch="$(which botch)";
 
     if [[ -z "$which_botch" ]]; then
        npm install -g botch
@@ -23,4 +28,4 @@ do_the_botch(){
 }
 
 
-export -f do_the_botch;
+export -f do_the_botch
