@@ -21,7 +21,7 @@ export botch_shell_file_name="xxx.sh";
 ```
 
 <i> 
-What this means: when you open a terminal, botch will attempt to source <br>
+<ul>What this means:</ul> when you open a terminal, botch will attempt to source <br>
 a shell script named `xxx.sh`, from the present working directory.
 </i>
 
@@ -39,7 +39,7 @@ Simply install it to every project you want to use it with.
 <p>
 
 <i> 
-What this means: Botch will do the same thing as above, if the `$botch_shell_file_name` env is set.
+<ul>What this means:</ul> Botch will do the same thing as above, if the `$botch_shell_file_name` env is set.
 But it will also pick up the `./node_modules/botch/bin.sh` file and run that for your project.
 Primarily this modifies the $PATH to include the executables in ./node_modules/.bin.
 This gives your local NPM executables *precendece*, since it prepends `./node_modules/.bin` to $PATH.
