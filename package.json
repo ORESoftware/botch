@@ -6,10 +6,13 @@
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
   "bin": {
-    "botch": "dist/cli.js"
+    "botch": "dist/cli.js",
+    "botch-test": "dist/cli-test.js",
+    "botch_test": "dist/cli-test.js"
   },
   "scripts": {
-    "test": "suman test"
+    "test": "suman test",
+    "postinstall": "./postinstall.sh"
   },
   "repository": {
     "type": "git",
@@ -30,6 +33,7 @@
   "dependencies": {},
   "devDependencies": {
     "@types/core-js": "^0.9.46",
-    "@types/node": "^9.6.2"
+    "@types/node": "^9.6.2",
+    "humpty-dumpty": "0.0.102"
   }
 }
