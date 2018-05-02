@@ -13,9 +13,6 @@ cd(){
     p="$(botch --clean-path)";
     export PATH="$p";
 
-   # we only add to the path, if botch is installed locally
-  . "$PWD/node_modules/botch/bin.sh" && echo "botch was sourced!" || {
-     echo "could not source botch";
-  }
-
+    # we only add to the path, if botch is installed locally
+    . "$HOME/.botch/shell.sh"
 }
