@@ -37,15 +37,16 @@ Simply install it to every project you want to use it with.
 ```
 
 <p>
+
 <i> 
-What this means: Botch will do the same thing as above, if the $botch_shell_file_name env is set.
+What this means: Botch will do the same thing as above, if the `$botch_shell_file_name` env is set.
 But it will also pick up the `./node_modules/botch/bin.sh` file and run that for your project.
-Primarily this modifies (prepends) the $PATH to include the executables in ./node_modules/.bin.
-This gives your local NPM executables *precendece*.
+Primarily this modifies the $PATH to include the executables in ./node_modules/.bin.
+This gives your local NPM executables *precendece*, since it prepends `./node_modules/.bin` to $PATH.
 </i>
 
-<br>
-<br>
+<p>
+<p>
 
 ## Regardless of which method you use, make sure you add this to your .bash_profile/.bashrc files:
 
@@ -54,6 +55,8 @@ This gives your local NPM executables *precendece*.
 . "$HOME/.botch/overrides.sh"  # source this if you want to invoke botch when changing directories
 ```
 
+The shell scripts will be available regardless of whether you install locally or globally. <br>
+Just source them.
 
 
 
