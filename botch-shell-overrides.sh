@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 
-run_botch_test(){
-  export botch_env="mucho botcho";
-}
 
 run_botch(){
 
@@ -16,6 +13,7 @@ run_botch(){
     which_botch="$(which do_the_botch)"
 
     if [[ -z "$which_botch" ]]; then
+      echo "botch coudl not find shell.sh in .botch home dir, re-sourcing.";
       . "$HOME/.botch/shell.sh";
     fi
 
@@ -25,15 +23,15 @@ run_botch(){
    }
 }
 
-pushd(){
-    builtin pushd "$@";
-    run_botch
-}
-
-popd(){
-    builtin popd "$@";
-    run_botch
-}
+#pushd(){
+#    builtin pushd "$@";
+#    run_botch
+#}
+#
+#popd(){
+#    builtin popd "$@";
+#    run_botch
+#}
 
 alias prev_cd="cd";
 
@@ -53,13 +51,12 @@ cd(){
 
 botch_unset_all(){
  unset -f cd;
- unset -f popd;
- unset -f pushd;
+# unset -f popd;
+# unset -f pushd;
 }
 
 export -f run_botch;
 export -f cd;
-export -f popd;
-export -f pushd;
+#export -f popd;
+#export -f pushd;
 export -f botch_unset_all;
-export -f run_botch_test;
