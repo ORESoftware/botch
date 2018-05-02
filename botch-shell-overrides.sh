@@ -43,20 +43,40 @@ popd(){
 #declare -F cd
 #shopt -u extdebug
 
-if [[ -z "$is_botch_cd_defined" ]]; then
-    export is_botch_cd_defined="yes";
-    definition_prev_cd="prev_$(declare -f cd)"
-    echo "$definition_prev_cd";
-    eval "${definition_prev_cd}"
-    unset definition_prev_cd  # clean up, no reason to leave this string around
-    export -f prev_cd
-fi
 
+botch_get_prev_cd(){
+    local dr=$(declare -f cd);
+#    local dr_trimmed="$(tr -d "$dr")"
+
+    if [[ "$dr" != *"run_botch"* ]]; then
+        definition_prev_cd="prev_$dr"
+        echo "$definition_prev_cd";
+        eval "${definition_prev_cd}"
+        unset definition_prev_cd  # clean up, no reason to leave this string around
+        export -f prev_cd
+        return 1;
+    fi
+}
+
+botch_get_prev_cd_OLD(){
+    if [[ -z "$is_botch_cd_defined" ]]; then
+        export is_botch_cd_defined="yes";
+        definition_prev_cd="prev_$(declare -f cd)"
+        echo "$definition_prev_cd";
+        eval "${definition_prev_cd}"
+        unset definition_prev_cd  # clean up, no reason to leave this string around
+        export -f prev_cd
+    fi
+}
+
+# run it now
+botch_get_prev_cd || {
+   echo "botch: had to re-evaluate the prev_cd function."
+}
 
 cd(){
 #    builtin cd "$@";
     prev_cd "$@"
-    echo "botch cd hook invoked."
     run_botch
 }
 
@@ -69,6 +89,7 @@ botch_unset_all(){
 
 export -f run_botch;
 export -f cd;
-#export -f popd;
-#export -f pushd;
+export -f popd;
+export -f pushd;
+export -f botch_get_prev_cd;
 export -f botch_unset_all;
