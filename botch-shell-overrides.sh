@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 
+run_botch_test(){
+  export botch_env="mucho botcho";
+}
+
 run_botch(){
 
     which_botch=$(which botch);
@@ -9,11 +13,16 @@ run_botch(){
        npm install -g botch
     fi
 
-    # we always clean the path
-    p="$(botch --clean-path)";
-    export PATH="$p";
+    which_botch="$(which do_the_botch)"
 
-    . "$HOME/.botch/shell.sh"
+    if [[ -z "$which_botch" ]]; then
+      . "$HOME/.botch/shell.sh";
+    fi
+
+    do_the_botch || {
+        p="$(botch --clean-path)";
+        export PATH="$p";
+   }
 }
 
 pushd(){
@@ -26,8 +35,18 @@ popd(){
     run_botch
 }
 
+alias prev_cd="cd";
+
+# Turn on extended shell debugging
+shopt -s extdebug
+# Dump the function's name, line number and fully qualified source file
+declare -F cd
+# Turn off extended shell debugging
+shopt -u extdebug
+
 cd(){
     builtin cd "$@";
+#    prev_cd "$@"
     run_botch
 }
 
@@ -43,3 +62,4 @@ export -f cd;
 export -f popd;
 export -f pushd;
 export -f botch_unset_all;
+export -f run_botch_test;
