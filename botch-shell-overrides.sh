@@ -46,6 +46,7 @@ popd(){
 
 botch_get_prev_cd(){
     local dr=$(declare -f cd);
+#    tr -d " " <<<"$dr"
 #    local dr_trimmed="$(tr -d "$dr")"
 
     if [[ "$dr" != *"run_botch"* ]]; then

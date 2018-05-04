@@ -31,7 +31,7 @@ a shell script named `xxx.sh`, from the present working directory._
 Simply install it to every project you want to use it with.
 
 ```bash
-  npm install -S botch
+  npm install -D botch
 ```
 
 <p>
